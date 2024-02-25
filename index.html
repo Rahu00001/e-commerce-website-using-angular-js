@@ -10,7 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 <body>
-  <div ng-app="myApp" ng-controller="myCtrl">
+  <div ng-app="myApp" ng-cloak ng-controller="myCtrl">
     <nav>
       <img src="images/shop2.jfif">
       <h1><i><b>Shopping Time</b></i>
@@ -32,9 +32,9 @@
             <div ng-repeat="x in womens track by $index" class="cardd">
               <img src="images/{{x}}" alt="Avatar" style="width:100%">
               <div class="containerr">
-                <h4><b ng-model="price">Price: ${{wprice[$index]}}</b> </h4><input class="button button2" type="submit"
+                <h4><b ng-model="price">Price: $<span ng-bind="wprice[$index]"></span></b> </h4><input class="button button2" type="submit"
                   value="Add" ng-click="waddProduct($index)">
-                <p ng-model="name">{{brand[$index]}}</p>
+                <p ng-bind="brand[$index]"></p>
               </div>
             </div>
           </div>
@@ -44,9 +44,9 @@
             <div ng-repeat="x in mens track by $index" class="cardd">
               <img src="images/{{x}}" alt="Avatar" style="width:100%">
               <div class="containerr">
-                <h4><b ng-model="price">Price: ${{mprice[$index]}}</b></h4> <input class="button button2" type="submit"
+                <h4><b ng-model="price">Price: $<span ng-bind="mprice[$index]"></span></b></h4> <input class="button button2" type="submit"
                   value="Add" ng-click="maddProduct($index)">
-                <p ng-model="name">{{brand[$index]}}</p>
+                <p ng-bind="brand[$index]"></p>
               </div>
             </div>
 
@@ -57,9 +57,9 @@
             <div ng-repeat="x in child track by $index" class="cardd">
               <img src="images/{{x}}" alt="Avatar" style="width:100%">
               <div class="containerr">
-                <h4><b ng-model="price">Price:${{cprice[$index]}}</b></h4><input class="button button2" type="submit"
+                <h4><b ng-model="price">Price: $<span ng-bind="cprice[$index]"></span></b></h4><input class="button button2" type="submit"
                   value="Add" ng-click="caddProduct($index)">
-                <p ng-model="name">{{brand[$index]}}</p>
+                <p ng-bind="brand[$index]"></p>
               </div>
             </div>
           </div>
@@ -69,9 +69,9 @@
             <div ng-repeat="x in defa track by $index" class="cardd">
               <img src="images/{{x}}" alt="Avatar" style="width:100%">
               <div class="containerr">
-                <h4><b>Price: </b><b ng-model="price">${{dprice[$index]}}</b></h4><input class="button button2"
+                <h4><b>Price: $<span ng-bind="dprice[$index]"></span></b></h4><input class="button button2"
                   type="submit" value="Add" ng-click="addProduct($index)">
-                <p ng-model="name">{{brands[$index]}}</p>
+                <p ng-bind="brands[$index]"></p>
               </div>
             </div>
           </div>
