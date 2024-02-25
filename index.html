@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="index.css">
+  <title>MyShop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+<body>
+  <div ng-app="myApp" ng-controller="myCtrl">
+    <nav>
+      <img src="images/shop2.jfif">
+      <h1><i><b>Shopping Time</b></i>
+        <h1>
+          <img src="images/logo.jpg">
+    </nav>
+    <div class="filters">
+      <label>
+        <h3><b>Search :</b></h3>
+      </label>
+      <select ng-model="select">
+        <option value="Mens">Mens
+        <option value="Women">Woman
+        <option value="Child">Child
+      </select>
+      <div ng-switch="select">
+        <div ng-switch-when="Women">
+          <div class="containerr">
+            <div ng-repeat="x in womens track by $index" class="cardd">
+              <img src="images/{{x}}" alt="Avatar" style="width:100%">
+              <div class="containerr">
+                <h4><b ng-model="price">Price: ${{wprice[$index]}}</b> </h4><input class="button button2" type="submit"
+                  value="Add" ng-click="waddProduct($index)">
+                <p ng-model="name">{{brand[$index]}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-switch-when="Mens">
+          <div class="containerr">
+            <div ng-repeat="x in mens track by $index" class="cardd">
+              <img src="images/{{x}}" alt="Avatar" style="width:100%">
+              <div class="containerr">
+                <h4><b ng-model="price">Price: ${{mprice[$index]}}</b></h4> <input class="button button2" type="submit"
+                  value="Add" ng-click="maddProduct($index)">
+                <p ng-model="name">{{brand[$index]}}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div ng-switch-when="Child">
+          <div class="containerr">
+            <div ng-repeat="x in child track by $index" class="cardd">
+              <img src="images/{{x}}" alt="Avatar" style="width:100%">
+              <div class="containerr">
+                <h4><b ng-model="price">Price:${{cprice[$index]}}</b></h4><input class="button button2" type="submit"
+                  value="Add" ng-click="caddProduct($index)">
+                <p ng-model="name">{{brand[$index]}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-switch-default>
+          <div class="containerr">
+            <div ng-repeat="x in defa track by $index" class="cardd">
+              <img src="images/{{x}}" alt="Avatar" style="width:100%">
+              <div class="containerr">
+                <h4><b>Price: </b><b ng-model="price">${{dprice[$index]}}</b></h4><input class="button button2"
+                  type="submit" value="Add" ng-click="addProduct($index)">
+                <p ng-model="name">{{brands[$index]}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cart">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-borderless align-middle">
+          <thead class="table-light">
+
+            <tr class="background-blue">
+              <th>Product</th>
+              <th>Price($)</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr ng-repeat="x in products track by $index">
+              <td scope="row">{{x.name}}</td>
+              <td>${{x.price}}</td>
+              <td><input class="button1 button2" type="submit" value="remove" ng-click="remProduct($index)"></td>
+
+            </tr>
+            <tr>
+              <td scope="row"><b>TOTAL</b></td>
+              <td><b>${{tot}}</b></td>
+
+            </tr>
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table>
+        <input type="button" class="button button2" value="Pay now">
+      </div>
+    </div>
+  </div>
+  <script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+      $scope.names = ["Women", "Mens", "Child"];
+      $scope.womens = ["w12.jfif", "w2.jfif", "w13.jfif", "w14.jfif", "w16.jfif", "w17.jfif", "w7.jfif", "w8.jfif", "w18.jfif", "w19.jfif"];
+      $scope.child = ["c11.jfif", "c2.jfif", "c3.jfif", "c4.jfif", "c5.jfif", "c6.jfif", "c7.jfif", "c8.jfif", "c9.jfif", "c10.jfif"];
+      $scope.mens = ["m1.jfif", "m2.webp", "m11.jfif", "m12.jfif", "m15.jpeg", "m6.jfif", "m7.jfif", "m8.jfif", "m9.jpg", "m16.jfif"];
+      $scope.defa = $scope.womens.concat($scope.mens).concat($scope.child);
+      $scope.brand = ["NIKE...", "Bata...", "walkaroo", "Adidas", "Reebok", "Clarks", "Puma...", "Skechers", "Converse", "Vans.."];
+      $scope.brands = $scope.brand.concat($scope.brand).concat($scope.brand);
+      $scope.mprice = [1050, 500, 2500, 3000, 450, 505, 600, 430, 590, 850];
+      $scope.wprice = [2450, 2000, 1500, 3450, 4050, 5305, 6200, 430, 530, 2550];
+      $scope.cprice = [5790, 5990, 2599, 905, 450, 505, 650, 450, 588, 820];
+      $scope.dprice = $scope.mprice.concat($scope.wprice).concat($scope.cprice);
+      $scope.products = [];
+      $scope.tot = 0;
+      $scope.addProduct = function ($index) {
+
+        $scope.products.push({ name: $scope.brands[$index], price: $scope.dprice[$index] });
+        $scope.tot += $scope.dprice[$index];
+      }
+      $scope.maddProduct = function ($index) {
+
+        $scope.products.push({ name: $scope.brand[$index], price: $scope.mprice[$index] });
+        $scope.tot += $scope.mprice[$index];
+      }
+
+      $scope.waddProduct = function ($index) {
+
+        $scope.products.push({ name: $scope.brand[$index], price: $scope.wprice[$index] });
+        $scope.tot += $scope.wprice[$index];
+
+      }
+
+      $scope.caddProduct = function ($index) {
+
+        $scope.products.push({ name: $scope.brand[$index], price: $scope.cprice[$index] });
+        $scope.tot += $scope.cprice[$index];
+
+      }
+      $scope.remProduct = function ($index) {
+        $scope.tot -= $scope.products[$index].price;
+        $scope.products.splice($index,1);
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>
